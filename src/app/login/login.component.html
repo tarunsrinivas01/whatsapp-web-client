@@ -14,13 +14,14 @@
                 <div style="display: flex;">
                     <a class="link" style="padding-right: 10px;"  href="#">Forgot your password?</a><a class="link" (click)="changepage()">signUp?</a>
                 </div>				
-                <button class="button">Log In</button> 
+                <button (click)="onLogin()" class="button">Log In</button> 
 			</form>
 		</div>
         <div *ngIf="!loginOrSignUp" class="form-container log-in-container">
 			<form [formGroup]="signUpForm">
 				<h1>signUp</h1>
 				<input formControlName="email" type="email" placeholder="Email" />
+				<input formControlName="userName" type="text" placeholder="User Name" />
                 <input formControlName="phoneNumber" type="number" placeholder="Phone Number">
 				<input formControlName="password" type="password" placeholder="Password" />
                 <input formControlName="confirmPassword" type="password" placeholder="Confirm Password" />
