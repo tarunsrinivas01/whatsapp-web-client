@@ -16,8 +16,7 @@ export class MyServiceService {
   }
 
   getUsers() {
-    console.log(this.token,'123')
-    return this.http.get('http://localhost:3000/user/getUsers',{headers:{'authorization':this.token}})
+    return this.http.get('http://localhost:3000/user/getUsers')
   }
 
   loginUser(data:any) {
@@ -25,10 +24,10 @@ export class MyServiceService {
   }
 
   sendChat(data:any) {
-    return this.http.post('http://localhost:3000/chat/sendmessage',data,{headers:{'authorization':this.token}})
+    return this.http.post('http://localhost:3000/chat/sendmessage',data)
   }
 
   getChats(selectedUserEmail:any) {
-    return this.http.post(`http://localhost:3000/chat/getmessages/${selectedUserEmail}`, {headers:{'authorization':this.token}})
+    return this.http.get(`http://localhost:3000/chat/getmessages/${selectedUserEmail}`)
   }
 }

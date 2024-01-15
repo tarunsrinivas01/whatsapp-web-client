@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { MyServiceService } from '../my-service.service';
 import { Router } from '@angular/router';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private myService:MyServiceService,
-    private router:Router
+    private router:Router,
+    private _cookieService: CookieService,
     ) {
     this.signUpForm = this.fb.group({
       email: ['', Validators.required],
@@ -62,8 +64,6 @@ export class LoginComponent {
       'userName' : userName,
       'password' : password
     }
-    console.log(userDetails)
-
     this.myService.postData(userDetails).subscribe((res)=>{
       this.signUpSuccessMsg = res.message
     })
@@ -78,12 +78,11 @@ export class LoginComponent {
       password : password
     }
 
-    this.myService.loginUser(loginDetails).subscribe((res:any)=>{
-      console.log(res.status)
-      if(res.success) {
-        localStorage.setItem('token',res.token)
-        this.router.navigate(['/user'])
-      }
+    this.myService.loginUser(loginDetails).toPromise().then((res: any) => {
+      let token = res?.token || ''
+      this._cookieService.set('token',token )
+      this._cookieService.set('isLoggedIn', 'true')
+      this.router.navigateByUrl('/user')
     })
 
   }

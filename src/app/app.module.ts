@@ -8,7 +8,9 @@ import { LoginComponent } from './login/login.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { UserScreenComponent } from './user-screen/user-screen.component';
 import { MyServiceService } from './my-service.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthGuard } from './auth.guard';
+import { TokenInterceptorService } from './token-interceptor.service';
 
 
 @NgModule({
@@ -24,7 +26,11 @@ import { HttpClientModule } from '@angular/common/http';
     MatFormFieldModule,
     HttpClientModule
   ],
-  providers: [MyServiceService],
+  providers: [MyServiceService, AuthGuard, {
+     provide: HTTP_INTERCEPTORS,
+     useClass: TokenInterceptorService,
+     multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

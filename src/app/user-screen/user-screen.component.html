@@ -11,15 +11,15 @@
     
   </div>
 
-  <div class="userChat-container">
-    <h1>{{selectedUser?.userName}}</h1>
-    <div [formGroup]="userChatForm" *ngIf="selectedUser" class="userChat-search">
-      <input formControlName="chat" type="text">
-      <button (click)="sendChat(selectedUser)">send</button>
+    <div class="userChat-container">
+      <h1>{{selectedUser?.userName}}</h1>
+      <div [formGroup]="userChatForm" *ngIf="selectedUser" class="userChat-search">
+        <input formControlName="chat" type="text">
+        <button (click)="sendChat(selectedUser)">send</button>
+      </div>
+      <div  class="chats">
+        <h4></h4>
+      </div>
     </div>
-    <div *ngFor="let item of list" class="chats">
-      <h4></h4>
-    </div>
-  </div>
 
  </div>
